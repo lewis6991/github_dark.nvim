@@ -144,6 +144,11 @@ call <sid>hi('WarningMsg'   , s:yellow_6, ''        )
 call <sid>hi('MoreMsg'      , s:green_6 , ''        )
 call <sid>hi('Question'     , s:green_6 , ''        )
 
+call <sid>hi('DiffAdd'   , '', s:green_0 )
+call <sid>hi('DiffDelete', '', s:red_0   )
+call <sid>hi('DiffChange', '', s:purple_0)
+call <sid>hi('DiffText'  , '', s:purple_1)
+
 call <sid>hi('GitGutterAdd'         , s:green_4 , '')
 call <sid>hi('GitGutterChange'      , s:purple_3, '')
 call <sid>hi('GitGutterDelete'      , s:red_4   , '')
@@ -163,6 +168,8 @@ call <sid>hi('Delimiter'    , s:red_7   , '')
 call <sid>hi('Identifier'   , s:gray_8  , '')
 call <sid>hi('Typedef'      , s:green_8 , '')
 call <sid>hi('Type'         , s:green_8 , '')
+
+call <sid>hi('Title'        , s:purple_6 , '')
 
 call <sid>hi('TSComment'        , s:gray_4  , '')
 call <sid>hi('TSVariable'       , s:gray_8  , '')
