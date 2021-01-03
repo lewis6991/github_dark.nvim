@@ -139,15 +139,16 @@ call <sid>hi('NonText'      , s:gray_4  , ''        )
 call <sid>hi('Search'       , s:white   , s:yellow_0)
 call <sid>hi('IncSearch'    , s:white   , s:yellow_0)
 call <sid>hi('SearchCurrent', s:white   , s:yellow_4)
+call <sid>hi('VertSplit'    , s:gray_3, '')
 call <sid>hi('ErrorMsg'     , s:red_6   , ''        )
 call <sid>hi('WarningMsg'   , s:yellow_6, ''        )
 call <sid>hi('MoreMsg'      , s:green_6 , ''        )
 call <sid>hi('Question'     , s:green_6 , ''        )
-
 call <sid>hi('DiffAdd'   , '', s:green_0 )
 call <sid>hi('DiffDelete', '', s:red_0   )
 call <sid>hi('DiffChange', '', s:purple_0)
 call <sid>hi('DiffText'  , '', s:purple_1)
+
 
 call <sid>hi('GitGutterAdd'         , s:green_4 , '')
 call <sid>hi('GitGutterChange'      , s:purple_3, '')
