@@ -1,13 +1,33 @@
 local api = vim.api
 
-local ns = api.nvim_create_namespace('github_dark')
+-- The lua api currently doesn't modify the :highlight namespace so by default
+-- we use vim.cmd to call the :highlight command. Note however the lua api code
+-- does work it just doesn't update the higlights outputed with :highlight. Once
+-- this is fixed in the future we can use the lua api by default.
 
-local function hi(def)
+local function hi_api(ns, def)
   for name, v in pairs(def) do
     api.nvim_set_hl(ns, name, {
       foreground = v.fg,
       background = v.bg
     })
+  end
+end
+
+local function hi_viml(def)
+  for name, v in pairs(def) do
+    local hi_args = {}
+    for k, val in pairs{
+      guifg   = v.fg and ('#%x'):format(v.fg) or 'None',
+      guibg   = v.bg and ('#%x'):format(v.bg) or 'None',
+      gui     = 'None',
+      ctermfg = 'None',
+      ctermbg = 'None',
+      cterm   = 'None',
+    } do
+      table.insert(hi_args, k..'='..val)
+    end
+    vim.cmd('hi '..name..' '..table.concat(hi_args, ' '))
   end
 end
 
@@ -116,11 +136,29 @@ local selection_bg = 0x29384B
 
 local M = {}
 
-function M.apply()
+function M.apply(use_lua_api)
   vim.cmd('highlight clear')
   vim.cmd('syntax reset')
 
   vim.g.colors_name = 'github_dark'
+
+  local ns
+  if use_lua_api then
+    ns = api.nvim_create_namespace('github_dark')
+    api.nvim_set_hl_ns(ns)
+
+    vim.cmd('augroup github_dark')
+    vim.cmd('autocmd ColorSchemePre * ++once call nvim_set_hl_ns(0)')
+    vim.cmd('augroup END')
+  end
+
+  local function hi(def)
+    if use_lua_api then
+      return hi_api(ns, def)
+    else
+      return hi_viml(def)
+    end
+  end
 
   hi {
     StorageClass = { fg = red_6 , bg = nil          },
@@ -223,12 +261,6 @@ function M.apply()
     TSType            = { fg = green_8  },
     TSTypeBuiltin     = { fg = green_8  },
   }
-
-  api.nvim_set_hl_ns(ns)
-
-  vim.cmd('augroup github_dark')
-  vim.cmd('autocmd ColorSchemePre * ++once call nvim_set_hl_ns(0)')
-  vim.cmd('augroup END')
 end
 
 return M
