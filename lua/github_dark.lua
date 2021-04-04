@@ -18,8 +18,8 @@ local function hi_viml(def)
   for name, v in pairs(def) do
     local hi_args = {}
     for k, val in pairs{
-      guifg   = v.fg and ('#%x'):format(v.fg) or 'None',
-      guibg   = v.bg and ('#%x'):format(v.bg) or 'None',
+      guifg   = v.fg and ('#%06x'):format(v.fg) or 'None',
+      guibg   = v.bg and ('#%06x'):format(v.bg) or 'None',
       gui     = 'None',
       ctermfg = 'None',
       ctermbg = 'None',
@@ -161,38 +161,41 @@ function M.apply(use_lua_api)
   end
 
   hi {
-    StorageClass = { fg = red_6 , bg = nil          },
-    LineNr       = { fg = gray_5, bg = nil          },
-    SignColumn   = { fg = gray_5, bg = nil          },
-    CursorLineNr = { fg = gray_7, bg = nil          },
-    Visual       = { fg = nil   , bg = selection_bg },
-    Cursor       = { fg = white , bg = nil          },
+    StorageClass = { fg = red_6  },
+    LineNr       = { fg = gray_5 },
+    SignColumn   = { fg = gray_5 },
+    CursorLineNr = { fg = gray_7 },
+    Visual       = { bg = selection_bg },
+    Cursor       = { fg = white  },
     Normal       = { fg = gray_8, bg = gray_0       }
   }
 
   hi {
-    CursorLine    = { fg = nil     , bg = gray_1   },
-    Todo          = { fg = yellow_6, bg = nil      },
-    Directory     = { fg = purple_7, bg = nil      },
-    Preproc       = { fg = purple_7, bg = nil      },
+    CursorLine    = { bg = gray_1   },
+    Todo          = { fg = yellow_6 },
+    Directory     = { fg = purple_7 },
+    Preproc       = { fg = purple_7 },
     StatusLine    = { fg = gray_8  , bg = gray_2   },
     StatusLineNC  = { fg = gray_4  , bg = gray_1   },
     Folded        = { fg = gray_6  , bg = gray_1   },
     PMenu         = { fg = gray_8  , bg = gray_1   },
     PMenuSel      = { fg = gray_8  , bg = gray_3   },
-    NonText       = { fg = gray_4  , bg = nil      },
+    NonText       = { fg = gray_4   },
     Search        = { fg = white   , bg = yellow_0 },
     IncSearch     = { fg = white   , bg = yellow_0 },
     SearchCurrent = { fg = white   , bg = yellow_4 },
-    VertSplit     = { fg = gray_3  , bg = nil      },
-    ErrorMsg      = { fg = red_6   , bg = nil      },
-    WarningMsg    = { fg = yellow_6, bg = nil      },
-    MoreMsg       = { fg = green_6 , bg = nil      },
-    Question      = { fg = green_6 , bg = nil      },
-    DiffAdd       = { fg = nil     , bg = green_0  },
-    DiffDelete    = { fg = nil     , bg = red_0    },
-    DiffChange    = { fg = nil     , bg = purple_0 },
-    DiffText      = { fg = nil     , bg = purple_1 },
+    VertSplit     = { fg = gray_3   },
+    ErrorMsg      = { fg = red_6    },
+    WarningMsg    = { fg = yellow_6 },
+    MoreMsg       = { fg = green_6  },
+    Question      = { fg = green_6  },
+    SpecialKey    = { fg = gray_6   },
+    DiffAdd       = { bg = green_0  },
+    DiffDelete    = { bg = red_0    },
+    DiffChange    = { bg = purple_0 },
+    DiffText      = { bg = purple_1 },
+    diffAdded     = { bg = green_0  },
+    diffRemoved   = { bg = red_0    },
   }
 
   hi {
@@ -200,6 +203,12 @@ function M.apply(use_lua_api)
     GitGutterChange       = { fg = purple_3 },
     GitGutterDelete       = { fg = red_4    },
     GitGutterChangeDelete = { fg = purple_3 },
+  }
+
+  hi {
+    GitSignsAdd          = { fg = green_4  },
+    GitSignsChange       = { fg = purple_3 },
+    GitSignsDelete       = { fg = red_4    },
   }
 
   hi {
