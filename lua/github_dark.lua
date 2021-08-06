@@ -52,9 +52,9 @@ local gray_8   = 0xc9d1d9
 -- local blue_6   = 0x58a6ff
 local blue_7   = 0x79c0ff
 local blue_8   = 0xa5d6ff
--- local blue_9   = 0xcae8ff
+local blue_9   = 0xcae8ff
 local green_0  = 0x04260f
--- local green_1  = 0x033a16
+local green_1  = 0x033a16
 -- local green_2  = 0x0f5323
 -- local green_3  = 0x196c2e
 local green_4  = 0x238636
@@ -84,7 +84,7 @@ local orange_7 = 0xffa657
 -- local orange_8 = 0xffc680
 -- local orange_9 = 0xffdfb6
 local red_0    = 0x490202
--- local red_1    = 0x67060c
+local red_1    = 0x67060c
 -- local red_2    = 0x8e1519
 -- local red_3    = 0xb62324
 local red_4    = 0xda3633
@@ -164,10 +164,13 @@ function M.apply(use_lua_api)
     StorageClass = { fg = red_6  },
     LineNr       = { fg = gray_5 },
     SignColumn   = { fg = gray_5 },
+    FoldColumn   = { fg = gray_3 },
     CursorLineNr = { fg = gray_7 },
     Visual       = { bg = selection_bg },
     Cursor       = { fg = white  },
-    Normal       = { fg = gray_8, bg = gray_0       }
+    Normal       = { fg = gray_8, bg = gray_0 },
+    NormalFloat  = { fg = gray_8, bg = gray_1 },
+    FloatBorder  = { fg = gray_4, bg = gray_1 },
   }
 
   hi {
@@ -206,9 +209,12 @@ function M.apply(use_lua_api)
   }
 
   hi {
-    GitSignsAdd          = { fg = green_4  },
-    GitSignsChange       = { fg = purple_3 },
-    GitSignsDelete       = { fg = red_4    },
+    GitSignsAdd       = { fg = green_4  },
+    GitSignsChange    = { fg = purple_3 },
+    GitSignsDelete    = { fg = red_4    },
+    GitSignsAddSec    = { fg = green_1  },
+    GitSignsChangeSec = { fg = purple_1 },
+    GitSignsDeleteSec = { fg = red_1    },
   }
 
   hi {
@@ -223,7 +229,7 @@ function M.apply(use_lua_api)
     Constant    = { fg = blue_7   },
     Special     = { fg = blue_7   },
     Delimiter   = { fg = red_7    },
-    Identifier  = { fg = gray_8   },
+    Identifier  = { fg = blue_9   },
     Typedef     = { fg = green_8  },
     Type        = { fg = green_8  },
     Title       = { fg = purple_6 },
