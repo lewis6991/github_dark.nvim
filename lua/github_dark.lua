@@ -1,15 +1,49 @@
 local api = vim.api
 
--- The lua api currently doesn't modify the :highlight namespace so by default
--- we use vim.cmd to call the :highlight command. Note however the lua api code
--- does work it just doesn't update the higlights outputed with :highlight. Once
--- this is fixed in the future we can use the lua api by default.
+local function parse_expr(x)
+  if not x then
+    return 'NONE'
+  end
+
+  if type(x) == 'number' then
+    return ('#%06x'):format(x)
+  end
+
+  return x
+end
+
+local function parse_attrs(x)
+  local r = {}
+
+  for k, a in pairs(x) do
+    if type(a) == 'boolean' and a then
+      r[#r+1] = k
+    end
+  end
+
+  if #r > 0 then
+    return table.concat(r, ',')
+  end
+  return 'NONE'
+end
+
+-- The Lua API currently doesn't modify the :highlight namespace so by default
+-- we use vim.cmd to call the :highlight command. Note however the Lua API code
+-- does work it just doesn't update the highlights outputted with :highlight. Once
+-- this is fixed in the future we can use the Lua API by default.
 
 local function hi_api(ns, def)
   for name, v in pairs(def) do
     api.nvim_set_hl(ns, name, {
-      foreground = v.fg,
-      background = v.bg
+      foreground    = v.fg,
+      background    = v.bg,
+      special       = v.sp,
+      bold          = v.bold,
+      underline     = v.underline,
+      undercurl     = v.undercurl,
+      strikethrough = v.strikethrough,
+      reverse       = v.reverse,
+      italic        = v.italic,
     })
   end
 end
@@ -18,12 +52,13 @@ local function hi_viml(def)
   for name, v in pairs(def) do
     local hi_args = {}
     for k, val in pairs{
-      guifg   = v.fg and ('#%06x'):format(v.fg) or 'None',
-      guibg   = v.bg and ('#%06x'):format(v.bg) or 'None',
-      gui     = 'None',
-      ctermfg = 'None',
-      ctermbg = 'None',
-      cterm   = 'None',
+      guifg   = parse_expr(v.fg),
+      guibg   = parse_expr(v.bg),
+      guisp   = parse_expr(v.sp),
+      gui     = parse_attrs(v),
+      ctermfg = 'NONE',
+      ctermbg = 'NONE',
+      cterm   = 'NONE',
     } do
       table.insert(hi_args, k..'='..val)
     end
@@ -145,11 +180,13 @@ function M.apply(use_lua_api)
   local ns
   if use_lua_api then
     ns = api.nvim_create_namespace('github_dark')
-    api.nvim_set_hl_ns(ns)
+    api.nvim__set_hl_ns(ns)
 
-    vim.cmd('augroup github_dark')
-    vim.cmd('autocmd ColorSchemePre * ++once call nvim_set_hl_ns(0)')
-    vim.cmd('augroup END')
+    vim.cmd[[
+      augroup github_dark
+      autocmd ColorSchemePre * ++once call nvim_set_hl_ns(0)
+      augroup END
+    ]]
   end
 
   local function hi(def)
@@ -193,6 +230,10 @@ function M.apply(use_lua_api)
     MoreMsg       = { fg = green_6  },
     Question      = { fg = green_6  },
     SpecialKey    = { fg = gray_6   },
+    SpellBad      = { undercurl=true, sp = red_1},
+  }
+
+  hi {
     DiffAdd       = { bg = green_0  },
     DiffDelete    = { bg = red_0    },
     DiffChange    = { bg = purple_0 },
@@ -206,6 +247,14 @@ function M.apply(use_lua_api)
     GitGutterChange       = { fg = purple_3 },
     GitGutterDelete       = { fg = red_4    },
     GitGutterChangeDelete = { fg = purple_3 },
+  }
+
+  -- nvim-cmp
+  hi {
+    CmpItemAbbr      = {fg=gray_5},
+    CmpItemAbbrMatch = {fg=gray_8, undercurl=true},
+    CmpItemMenu      = {fg=purple_6},
+    CmpItemKind      = {fg=blue_7},
   }
 
   hi {
@@ -222,7 +271,7 @@ function M.apply(use_lua_api)
     Keyword     = { fg = red_6    },
     Statement   = { fg = red_6    },
     Conditional = { fg = red_6    },
-    Comment     = { fg = gray_4   },
+    Comment     = { fg = gray_4   , italic=true},
     Function    = { fg = purple_7 },
     Structure   = { fg = blue_8   },
     String      = { fg = blue_8   },
@@ -236,7 +285,7 @@ function M.apply(use_lua_api)
   }
 
   hi {
-    TSComment         = { fg = gray_4   },
+    TSComment         = { fg = gray_4, italic=true},
     TSVariable        = { fg = gray_8   },
     TSField           = { fg = blue_7   },
     TSProperty        = { fg = gray_7   },
@@ -276,6 +325,19 @@ function M.apply(use_lua_api)
     TSType            = { fg = green_8  },
     TSTypeBuiltin     = { fg = green_8  },
   }
+
+  for kind, color in pairs{
+    Error = red_4,
+    Warn  = yellow_6,
+    Hint  = gray_7,
+    Info  = gray_7,
+  } do
+    hi {
+      ['Diagnostic'..kind]          = {fg=color},
+      ['DiagnosticUnderline'..kind] = {sp=color, undercurl=true},
+    }
+  end
+
 end
 
 return M
