@@ -252,7 +252,7 @@ function M.apply(use_lua_api)
   -- nvim-cmp
   hi {
     CmpItemAbbr      = {fg=gray_5},
-    CmpItemAbbrMatch = {fg=gray_8, undercurl=true},
+    CmpItemAbbrMatch = {fg=gray_8 },
     CmpItemMenu      = {fg=purple_6},
     CmpItemKind      = {fg=blue_7},
   }

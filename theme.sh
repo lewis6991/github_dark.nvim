@@ -1,46 +1,46 @@
-#! /usr/bin/env zsh
+#! /usr/bin/env bash
 
-local black='0d/11/17'
-# local black_bright='16/1b/22'
-# local black_bright='21/26/2d'
-local black_bright='30/36/3d'
-local white='b1/ba/c4'
-local white_bright='c9/d1/d9'
-local red='ff/7b/72'
-local red_bright='ff/a1/98'
-local green='3f/b9/50'
-local green_bright='56/d3/64'
-local yellow='d2/99/22'
-local yellow_bright='e3/b3/41'
-local blue='58/a6/ff'
-local blue_bright='79/c0/ff'
-local magenta='bc/8c/ff'
-local magenta_bright='d2/a8/ff'
-local cyan='76/e3/ea'
-local cyan_bright='b3/f0/ff'
+black='0d/11/17'
+# black_bright='16/1b/22'
+# black_bright='21/26/2d'
+black_bright='30/36/3d'
+white='b1/ba/c4'
+white_bright='c9/d1/d9'
+red='ff/7b/72'
+red_bright='ff/a1/98'
+green='3f/b9/50'
+green_bright='56/d3/64'
+yellow='d2/99/22'
+yellow_bright='e3/b3/41'
+blue='58/a6/ff'
+blue_bright='79/c0/ff'
+magenta='bc/8c/ff'
+magenta_bright='d2/a8/ff'
+cyan='76/e3/ea'
+cyan_bright='b3/f0/ff'
 
-local color_foreground=$white
-local color_background=$black
+color_foreground=$white
+color_background=$black
 
 if [ -n "$TMUX" ]; then
     # Tell tmux to pass the escape sequences through
     # (Source: http://permalink.gmane.org/gmane.comp.terminal-emulators.tmux.user/1324)
-    put_template()        { printf '\033Ptmux;\033\033]4;%d;rgb:%s\033\033\\\033\\' $@; }
-    put_template_var()    { printf '\033Ptmux;\033\033]%d;rgb:%s\033\033\\\033\\' $@; }
-    put_template_custom() { printf '\033Ptmux;\033\033]%s\033\033\\\033\\' $@; }
+    put_template()        { printf '\033Ptmux;\033\033]4;%d;rgb:%s\033\033\\\033\\' "$1" "$2"; }
+    put_template_var()    { printf '\033Ptmux;\033\033]%d;rgb:%s\033\033\\\033\\'   "$1" "$2"; }
+    put_template_custom() { printf '\033Ptmux;\033\033]%s\033\033\\\033\\'          "$1" "$2"; }
 elif [ "${TERM%%[-.]*}" = "screen" ]; then
     # GNU screen (screen, screen-256color, screen-256color-bce)
-    put_template()        { printf '\033P\033]4;%d;rgb:%s\007\033\\' $@; }
-    put_template_var()    { printf '\033P\033]%d;rgb:%s\007\033\\' $@; }
-    put_template_custom() { printf '\033P\033]%s\007\033\\' $@; }
+    put_template()        { printf '\033P\033]4;%d;rgb:%s\007\033\\' "$1" "$2"; }
+    put_template_var()    { printf '\033P\033]%d;rgb:%s\007\033\\'   "$1" "$2"; }
+    put_template_custom() { printf '\033P\033]%s\007\033\\'          "$1" "$2"; }
 elif [ "${TERM%%-*}" = "linux" ]; then
-    put_template() { [ $1 -lt 16 ] && printf "\e]P%x%s" $1 $(echo $2 | sed 's/\///g'); }
-    put_template_var() { true; }
+    put_template()        { [ "$1" -lt 16 ] && printf "\e]P%x%s" "$1" "$(echo "$2" | sed 's/\///g')"; }
+    put_template_var()    { true; }
     put_template_custom() { true; }
 else
-    put_template()        { printf '\033]4;%d;rgb:%s\033\\' $@; }
-    put_template_var()    { printf '\033]%d;rgb:%s\033\\' $@; }
-    put_template_custom() { printf '\033]%s\033\\' $@; }
+    put_template()        { printf '\033]4;%d;rgb:%s\033\\' "$1" "$2"; }
+    put_template_var()    { printf '\033]%d;rgb:%s\033\\'   "$1" "$2"; }
+    put_template_custom() { printf '\033]%s\033\\'          "$1" "$2"; }
 fi
 
 # 16 color space
@@ -63,9 +63,9 @@ put_template 15 $white_bright
 
 # foreground / background / cursor color
 if [ -n "$ITERM_SESSION_ID" ]; then
-    local blackp=${black//\/}
-    local black_brightp=${black_bright//\/}
-    local whitep=${white//\/}
+    blackp=${black//\/}
+    black_brightp=${black_bright//\/}
+    whitep=${white//\/}
 
     # iTerm2 proprietary escape codes
     put_template_custom "1337;SetColors=fg=$whitep"
