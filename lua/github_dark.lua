@@ -52,7 +52,7 @@ local function hi_viml(def)
   for name, v in pairs(def) do
     local hi_args = {}
     if v.link then
-      vim.cmd('hi '..name..' '..v.link)
+      vim.cmd('hi link '..name..' '..v.link)
     else
       for k, val in pairs{
         guifg   = parse_expr(v.fg),
