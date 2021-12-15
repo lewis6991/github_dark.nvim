@@ -196,6 +196,9 @@ function M.apply(use_lua_api)
     Question      = { fg = green[6]  },
     SpecialKey    = { fg = gray[6]   },
     SpellBad      = { undercurl=true, sp = pink[1]},
+    -- TabLine       = { bg = gray[2] },
+    TabLineFill   = { fg = gray[6], bg = gray[1] },
+    TabLineSel    = {               bg = gray[2], bold=true },
   }
 
   hi {
