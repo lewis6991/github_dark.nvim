@@ -229,11 +229,11 @@ function M.apply(use_lua_api)
 
     GitSignsAddLnInline    = { bg = green[1]  },
     GitSignsChangeLnInline = { bg = purple[1] },
-    GitSignsDeletLneInline = { bg = red[1]    },
+    GitSignsDeleteLnInline = { bg = red[1]    },
 
     GitSignsAddLn          = { bg = green[0]  },
     GitSignsChangeLn       = { bg = purple[0] },
-    GitSignsDeletLne       = { bg = red[0]    },
+    GitSignsDeleteLn       = { bg = red[0]    },
 
     GitSignsAddSec         = { fg = green[1]  },
     GitSignsChangeSec      = { fg = purple[3] },
