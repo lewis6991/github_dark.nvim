@@ -1,75 +1,10 @@
-local api = vim.api
+local set_hl = vim.api.nvim_set_hl
 
-local function parse_expr(x)
-  if not x then
-    return 'NONE'
-  end
-
-  if type(x) == 'number' then
-    return ('#%06x'):format(x)
-  end
-
-  return x
-end
-
-local function parse_attrs(x)
-  local r = {}
-
-  for k, a in pairs(x) do
-    if type(a) == 'boolean' and a then
-      r[#r+1] = k
-    end
-  end
-
-  if #r > 0 then
-    return table.concat(r, ',')
-  end
-  return 'NONE'
-end
-
--- The Lua API currently doesn't modify the :highlight namespace so by default
--- we use vim.cmd to call the :highlight command. Note however the Lua API code
--- does work it just doesn't update the highlights outputted with :highlight. Once
--- this is fixed in the future we can use the Lua API by default.
-
-local function hi_api(ns, def)
+local function hi(def)
   for name, v in pairs(def) do
-    api.nvim_set_hl(ns, name, {
-      foreground    = v.fg,
-      background    = v.bg,
-      special       = v.sp,
-      bold          = v.bold,
-      underline     = v.underline,
-      undercurl     = v.undercurl,
-      strikethrough = v.strikethrough,
-      reverse       = v.reverse,
-      italic        = v.italic,
-    })
+    set_hl(0, name, v)
   end
 end
-
-local function hi_viml(def)
-  for name, v in pairs(def) do
-    local hi_args = {}
-    if v.link then
-      vim.cmd('hi link '..name..' '..v.link)
-    else
-      for k, val in pairs{
-        guifg   = parse_expr(v.fg),
-        guibg   = parse_expr(v.bg),
-        guisp   = parse_expr(v.sp),
-        gui     = parse_attrs(v),
-        ctermfg = 'NONE',
-        ctermbg = 'NONE',
-        cterm   = 'NONE',
-      } do
-        table.insert(hi_args, k..'='..val)
-      end
-      vim.cmd('hi '..name..' '..table.concat(hi_args, ' '))
-    end
-  end
-end
-
 
 local gray = {
   [0] = 0x0d1117, [1] = 0x161b22, [2] = 0x21262d, [3] = 0x30363d, [4] = 0x484f58,
@@ -136,31 +71,11 @@ local selection_bg = 0x29384B
 
 local M = {}
 
-function M.apply(use_lua_api)
+function M.apply()
   vim.cmd('highlight clear')
   vim.cmd('syntax reset')
 
   vim.g.colors_name = 'github_dark'
-
-  local ns
-  if use_lua_api then
-    ns = api.nvim_create_namespace('github_dark')
-    api.nvim__set_hl_ns(ns)
-
-    vim.cmd[[
-      augroup github_dark
-      autocmd ColorSchemePre * ++once call nvim_set_hl_ns(0)
-      augroup END
-    ]]
-  end
-
-  local function hi(def)
-    if use_lua_api then
-      return hi_api(ns, def)
-    else
-      return hi_viml(def)
-    end
-  end
 
   hi {
     StorageClass = { fg = red[6]  },

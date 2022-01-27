@@ -1,1 +1,1 @@
-lua require'github_dark'.apply()
+lua require'github_dark'.apply(true)
