@@ -103,7 +103,7 @@ function M.apply()
     NonText       = { fg = gray[3]   },
     Search        = { fg = white  , bg = yellow[0] },
     IncSearch     = { fg = white  , bg = yellow[0] },
-    SearchCurrent = { fg = white  , bg = yellow[4] },
+    CurSearch     = { fg = white  , bg = yellow[4] },
     VertSplit     = { fg = gray[3]   },
     ErrorMsg      = { fg = red[6]    },
     WarningMsg    = { fg = yellow[6] },
