@@ -79,7 +79,7 @@ hi {
   LineNr       = { fg = gray[5] },
   SignColumn   = { fg = gray[5] },
   FoldColumn   = { fg = gray[3] },
-  CursorLineNr = { fg = gray[7] },
+  CursorLineNr = { bg = gray[1] },
   Visual       = { bg = selection_bg },
   Cursor       = { fg = white  },
   Normal       = { fg = gray[8], bg = gray[0] },
@@ -248,15 +248,26 @@ hi {
   TSWarning            = { link = 'Todo'           },
 }
 
-for kind, color in pairs{
-  Error = red[4],
-  Warn  = yellow[6],
-  Hint  = gray[7],
-  Info  = gray[7],
+-- Semtantic tokens
+hi {
+  LspDefaultLibrary = { italic = true },
+  LspDeprecated     = { bg = orange[0] },
+  LspMacro          = { bg = gray[1], bold = true },
+  LspModification   = { bg = red[0]},
+  LspParameter      = { italic = true },
+  LspReadonly       = { bg = blue[0] },
+  LspStatic         = { underdotted = true, sp = yellow[2] }
+}
+
+for kind, colors in pairs{
+  Error = { fg = red[5]    , bg = red[0] },
+  Warn  = { fg = yellow[5] , bg = yellow[0] },
+  Hint  = { fg = gray[5]   , bg = gray[1] },
+  Info  = { fg = gray[7]   , bg = gray[2] },
 } do
   hi {
-    ['Diagnostic'..kind]          = {fg=color},
-    ['DiagnosticUnderline'..kind] = {sp=color, undercurl=true},
+    ['Diagnostic'..kind]            = {fg = colors.fg },
+    ['DiagnosticVirtualText'..kind] = {fg = colors.fg, bg = colors.bg},
+    ['DiagnosticUnderline'..kind]   = {sp = colors.fg, undercurl = true},
   }
 end
-
