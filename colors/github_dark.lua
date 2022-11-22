@@ -150,6 +150,8 @@ hi {
   GitSignsAddSec         = { fg = green[1]  },
   GitSignsChangeSec      = { fg = purple[3] },
   GitSignsDeleteSec      = { fg = red[1]    },
+
+  GitSignsVirtLnum       = { bg = red[0], fg = red[2]  },
 }
 
 -- vim-gitgutter
