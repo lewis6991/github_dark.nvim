@@ -252,13 +252,13 @@ hi {
 
 -- Semtantic tokens
 hi {
-  LspDefaultLibrary = { italic = true },
-  LspDeprecated     = { bg = orange[0] },
-  LspMacro          = { bg = gray[1], bold = true },
-  LspModification   = { bg = red[0]},
-  LspParameter      = { italic = true },
-  LspReadonly       = { bg = blue[0] },
-  LspStatic         = { underdotted = true, sp = yellow[2] }
+  ['@default.library'] = { italic = true },
+  ['@deprecated' ]  = { bg = orange[0] },
+  ['@macro']        = { bg = gray[1], bold = true },
+  ['@modification'] = { bg = red[0]},
+  ['@parameter']    = { italic = true },
+  ['@readonly']     = { bg = blue[0] },
+  ['@static']       = { underdotted = true, sp = yellow[2] }
 }
 
 for kind, colors in pairs{
