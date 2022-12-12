@@ -252,7 +252,7 @@ hi {
 
 -- Semtantic tokens
 hi {
-  ['@default.library'] = { italic = true },
+  ['@defaultLibrary'] = { italic = true },
   ['@deprecated' ]  = { bg = orange[0] },
   ['@macro']        = { bg = gray[1], bold = true },
   ['@modification'] = { bg = red[0]},
