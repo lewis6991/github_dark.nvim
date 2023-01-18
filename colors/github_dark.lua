@@ -1,10 +1,3 @@
-local set_hl = vim.api.nvim_set_hl
-
-local function hi(def)
-  for name, v in pairs(def) do
-    set_hl(0, name, v)
-  end
-end
 
 local gray = {
   [0] = 0x0d1117, [1] = 0x161b22, [2] = 0x21262d, [3] = 0x30363d, [4] = 0x484f58,
@@ -46,7 +39,7 @@ local pink = {
   [5] = 0xdb61a2, [6] = 0xf778ba, [7] = 0xff9bce, [8] = 0xffbedd, [9] = 0xffdaec
 }
 
--- local black    = 0x010409
+local black    = 0x010409
 local white = gray[9]
 
 -- local ansi_black          = gray_0
@@ -69,8 +62,35 @@ local white = gray[9]
 
 local selection_bg = 0x29384B
 
-vim.cmd('highlight clear')
-vim.cmd('syntax reset')
+local function hi(def)
+  for name, v in pairs(def) do
+    vim.api.nvim_set_hl(0, name, v)
+  end
+end
+
+local function merge(c1, c2, ratio)
+  ratio = ratio or 0.5
+  assert(ratio <= 1 and ratio >= 0)
+  local r1 = bit.arshift(bit.band(c1, 0xFF0000), 16)
+  local r2 = bit.arshift(bit.band(c2, 0xFF0000), 16)
+  local g1 = bit.arshift(bit.band(c1, 0x00FF00), 8)
+  local g2 = bit.arshift(bit.band(c2, 0x00FF00), 8)
+  local b1 = bit.band(c1, 0x0000FF)
+  local b2 = bit.band(c2, 0x0000FF)
+
+  local r = bit.band((r1 * ratio) + (r2 * (1 - ratio)), 0xFF)
+  local g = bit.band((g1 * ratio) + (g2 * (1 - ratio)), 0xFF)
+  local b = bit.band((b1 * ratio) + (b2 * (1 - ratio)), 0xFF)
+
+  return bit.lshift(r, 16) + bit.lshift(g, 8) + b
+end
+
+local function dim(c, ratio)
+  return merge(c, gray[0], ratio)
+end
+
+vim.cmd.highlight'clear'
+vim.cmd.syntax'reset'
 
 vim.g.colors_name = 'github_dark'
 
@@ -85,9 +105,7 @@ hi {
   Normal       = { fg = gray[8], bg = gray[0] },
   NormalFloat  = { fg = gray[8], bg = gray[1] },
   FloatBorder  = { fg = gray[4], bg = gray[1] },
-}
 
-hi {
   CursorLine    = { bg = gray[1]   },
   Todo          = { fg = yellow[6] },
   Directory     = { fg = purple[7] },
@@ -111,37 +129,35 @@ hi {
   TabLine       = { bg = gray[2] },
   TabLineFill   = { fg = gray[6], bg = gray[1] },
   TabLineSel    = {               bg = gray[3], bold=true },
-}
 
-hi {
-  DiffAdd       = { bg = green[0]  },
-  DiffDelete    = { bg = red[0]    },
-  DiffChange    = { bg = purple[0] },
-  DiffText      = { bg = purple[1] },
+  DiffAdd       = { bg = dim(green[0])  },
+  DiffDelete    = { bg = dim(red[0])    },
+  DiffChange    = { bg = dim(purple[0]) },
+  DiffText      = { bg = dim(purple[1]) },
   diffAdded     = { bg = green[0]  },
   diffRemoved   = { bg = red[0]    },
-}
 
--- nvim-cmp
-hi {
+  -- nvim-cmp
   CmpItemAbbr      = {fg=gray[5]   },
   CmpItemAbbrMatch = {fg=gray[8]   },
   CmpItemMenu      = {fg=purple[6] },
   CmpItemKind      = {fg=blue[7]   },
-}
 
-hi {
   GitSignsAdd            = { fg = green[4]  },
   GitSignsChange         = { fg = purple[3] },
   GitSignsDelete         = { fg = red[4]    },
 
-  GitSignsAddInline      = { bg = green[2]  },
-  GitSignsChangeInline   = { bg = purple[2] },
-  GitSignsDeleteInline   = { bg = red[2]    },
+  GitSignsAddInline      = { bg = green[1]  },
+  GitSignsChangeInline   = { bg = purple[1] },
+  GitSignsDeleteInline   = { bg = red[1]    },
 
-  GitSignsAddLnInline    = { bg = green[1]  },
-  GitSignsChangeLnInline = { bg = purple[1] },
-  GitSignsDeleteLnInline = { bg = red[1]    },
+  -- GitSignsAddLnInline    = { bg = green[1]  },
+  -- GitSignsChangeLnInline = { bg = purple[1] },
+  -- GitSignsDeleteLnInline = { bg = red[1]    },
+
+  GitSignsAddLnInline    = { bg = dim(green[0] , 0.4)},
+  GitSignsChangeLnInline = { bg = dim(purple[0], 0.4)},
+  GitSignsDeleteLnInline = { bg = dim(red[0]   , 0.4)},
 
   GitSignsAddLn          = { bg = green[0]  },
   GitSignsChangeLn       = { bg = purple[0] },
@@ -152,17 +168,13 @@ hi {
   GitSignsDeleteSec      = { fg = red[1]    },
 
   GitSignsVirtLnum       = { bg = red[0], fg = red[2]  },
-}
 
--- vim-gitgutter
-hi {
+  -- vim-gitgutter
   GitGutterAdd          = { link='GitSignsAdd'    },
   GitGutterChange       = { link='GitSignsChange' },
   GitGutterDelete       = { link='GitSignsDelete' },
   GitGutterChangeDelete = { link='GitSignsChange' },
-}
 
-hi {
   Operator    = { fg = red[7]    },
   Keyword     = { fg = red[6]    },
   Statement   = { fg = red[6]    },
@@ -178,9 +190,7 @@ hi {
   Typedef     = { fg = green[8]  },
   Type        = { fg = green[8]  },
   Title       = { fg = purple[6] },
-}
 
-hi {
   TSVariable        = { fg = gray[8]   },
   -- TSField           = { fg = blue[7]   },
   -- TSProperty        = { fg = gray[7]   },
@@ -248,17 +258,15 @@ hi {
   TSURI                = { link = 'Underlined'     },
   TSVariableBuiltin    = { link = 'Special'        },
   TSWarning            = { link = 'Todo'           },
-}
 
--- Semtantic tokens
-hi {
+  -- Semtantic tokens
   ['@defaultLibrary'] = { italic = true },
-  ['@deprecated' ]  = { bg = orange[0] },
-  ['@macro']        = { bg = gray[1], bold = true },
-  ['@modification'] = { bg = red[0]},
-  ['@parameter']    = { italic = true },
-  ['@readonly']     = { bg = blue[0] },
-  ['@static']       = { underdotted = true, sp = yellow[2] }
+  ['@deprecated' ]    = { bg = orange[0] },
+  ['@macro']          = { bg = gray[1], bold = true },
+  ['@modification']   = { bg = red[0]},
+  ['@parameter']      = { italic = true },
+  ['@readonly']       = { bg = blue[0] },
+  ['@static']         = { underdotted = true, sp = yellow[2] }
 }
 
 for kind, colors in pairs{
