@@ -260,13 +260,15 @@ hi {
   TSWarning            = { link = 'Todo'           },
 
   -- Semtantic tokens
-  ['@defaultLibrary'] = { italic = true },
-  ['@deprecated' ]    = { bg = orange[0] },
-  ['@macro']          = { bg = gray[1], bold = true },
-  ['@modification']   = { bg = red[0]},
-  ['@parameter']      = { italic = true },
-  ['@readonly']       = { bg = blue[0] },
-  ['@static']         = { underdotted = true, sp = yellow[2] }
+  ['@lsp.mod.defaultLibrary'] = { italic = true },
+  ['@lsp.mod.deprecated' ]    = { bg = orange[0] },
+  ['@lsp.type.macro']          = { bg = gray[1], bold = true },
+  ['@lsp.mod.modification']   = { bg = red[0]},
+  ['@lsp.mod.parameter']      = { italic = true },
+  ['@lsp.mod.readonly']       = { bg = blue[0] },
+  ['@lso.mod.static']         = { underdotted = true, sp = yellow[2] },
+  ['@lsp.type.keyword'] = { link = 'Keyword' },
+  ['@lsp.mod.documentation'] = { link = 'SpecialComment' }
 }
 
 for kind, colors in pairs{
