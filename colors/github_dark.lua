@@ -266,9 +266,11 @@ hi {
   ['@lsp.mod.modification']   = { bg = red[0]},
   ['@lsp.mod.parameter']      = { italic = true },
   ['@lsp.mod.readonly']       = { bg = blue[0] },
-  ['@lso.mod.static']         = { underdotted = true, sp = yellow[2] },
+  ['@lsp.mod.static']         = { underdotted = true, sp = yellow[2] },
   ['@lsp.type.keyword'] = { link = 'Keyword' },
-  ['@lsp.mod.documentation'] = { link = 'SpecialComment' }
+  ['@lsp.mod.documentation'] = { link = 'SpecialComment' },
+
+  LspInlayHint = { fg = gray[5], bg = gray[1], italic = true },
 }
 
 for kind, colors in pairs{
