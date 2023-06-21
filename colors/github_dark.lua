@@ -155,9 +155,9 @@ hi {
   -- GitSignsChangeLnInline = { bg = purple[1] },
   -- GitSignsDeleteLnInline = { bg = red[1]    },
 
-  GitSignsAddLnInline    = { bg = dim(green[0] , 0.4)},
-  GitSignsChangeLnInline = { bg = dim(purple[0], 0.4)},
-  GitSignsDeleteLnInline = { bg = dim(red[0]   , 0.4)},
+  GitSignsAddLnInline    = { bg = dim(green[0] , 0.8)},
+  GitSignsChangeLnInline = { bg = dim(purple[0], 0.8)},
+  GitSignsDeleteLnInline = { bg = dim(red[0]   , 0.8)},
 
   GitSignsAddLn          = { bg = green[0]  },
   GitSignsChangeLn       = { bg = purple[0] },
