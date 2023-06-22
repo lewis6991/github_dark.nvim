@@ -1,3 +1,4 @@
+local bit = require'bit'
 
 local gray = {
   [0] = 0x0d1117, [1] = 0x161b22, [2] = 0x21262d, [3] = 0x30363d, [4] = 0x484f58,
@@ -39,7 +40,7 @@ local pink = {
   [5] = 0xdb61a2, [6] = 0xf778ba, [7] = 0xff9bce, [8] = 0xffbedd, [9] = 0xffdaec
 }
 
-local black    = 0x010409
+-- local black    = 0x010409
 local white = gray[9]
 
 -- local ansi_black          = gray_0
@@ -62,6 +63,7 @@ local white = gray[9]
 
 local selection_bg = 0x29384B
 
+--- @param def table<string,table<string,any>>
 local function hi(def)
   for name, v in pairs(def) do
     vim.api.nvim_set_hl(0, name, v)
