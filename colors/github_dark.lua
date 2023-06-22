@@ -115,6 +115,7 @@ hi {
   Folded        = { fg = gray[6] , bg = gray[1]   },
   PMenu         = { fg = gray[8] , bg = gray[1]   },
   PMenuSel      = { fg = gray[8] , bg = gray[3]   },
+  MatchParen    = { bg = gray[2] , bold = true   },
   NonText       = { fg = gray[3]   },
   Search        = { fg = white  , bg = yellow[0] },
   IncSearch     = { fg = white  , bg = yellow[0] },
