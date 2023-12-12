@@ -107,6 +107,7 @@ hi {
   Normal       = { fg = gray[8], bg = gray[0] },
   NormalFloat  = { fg = gray[8], bg = gray[1] },
   FloatBorder  = { fg = gray[4], bg = gray[1] },
+  WinSeparator = { fg = gray[3] },
 
   CursorLine    = { bg = gray[1]   },
   Todo          = { fg = yellow[6] },
