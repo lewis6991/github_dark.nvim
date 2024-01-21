@@ -195,11 +195,13 @@ hi {
   Type        = { fg = green[8]  },
   Title       = { fg = purple[6] },
 
-  ['@variable']     = { link = 'Identifier' },
+  ['@conditional']  = { link = 'Conditional' },
+  ['@define']       = { link = 'Define' },
+  ['@repeat']       = { link = 'Repeat' },
+  ['@storageclass'] = { link = 'StorageClass' },
   ['@type']         = { link = 'Type' },
   ['@type.builtin'] = { link = 'Type' },
-  ['@define']       = { link = 'Define' },
-  ['@conditional']  = { link = 'Conditional' },
+  ['@variable']     = { link = 'Identifier' },
 
   -- Semtantic tokens
   ['@lsp.typemod.defaultLibrary'] = { italic = true },
