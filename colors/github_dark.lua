@@ -202,15 +202,15 @@ hi {
   ['@conditional']  = { link = 'Conditional' },
 
   -- Semtantic tokens
-  ['@lsp.mod.defaultLibrary'] = { italic = true },
-  ['@lsp.mod.deprecated' ]    = { bg = orange[0] },
-  ['@lsp.type.macro']         = { bg = gray[1], bold = true },
-  ['@lsp.mod.modification']   = { bg = red[0]},
-  ['@lsp.mod.parameter']      = { italic = true },
-  ['@lsp.mod.readonly']       = { bg = blue[0] },
-  ['@lsp.mod.static']         = { underdotted = true, sp = yellow[2] },
-  ['@lsp.type.keyword']       = { link = 'Keyword' },
-  ['@lsp.mod.documentation']  = { link = 'SpecialComment' },
+  ['@lsp.typemod.defaultLibrary'] = { italic = true },
+  ['@lsp.typemod.deprecated' ]    = { bg = orange[0] },
+  ['@lsp.type.macro']             = { bg = gray[1], bold = true },
+  ['@lsp.typemod.modification']   = { bg = red[0]},
+  ['@lsp.typemod.parameter']      = { italic = true },
+  ['@lsp.typemod.readonly']       = { bg = blue[0] },
+  ['@lsp.typemod.static']         = { underdotted = true, sp = yellow[2] },
+  ['@lsp.type.keyword']           = { link = 'Keyword' },
+  ['@lsp.typemod.documentation']  = { link = 'SpecialComment' },
 
   LspInlayHint = { fg = gray[5], bg = gray[1], italic = true },
 }
