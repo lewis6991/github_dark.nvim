@@ -212,7 +212,8 @@ hi {
   ['@lsp.typemod.readonly']       = { bg = blue[0] },
   ['@lsp.typemod.static']         = { underdotted = true, sp = yellow[2] },
   ['@lsp.type.keyword']           = { link = 'Keyword' },
-  ['@lsp.typemod.documentation']  = { link = 'SpecialComment' },
+  ['@lsp.mod.documentation']      = { link = 'SpecialComment' },
+  ['@lsp.typemod.variable.globalScope'] = { bg = dim(purple[1]) },
 
   LspInlayHint = { fg = gray[5], bg = gray[1], italic = true },
 }
