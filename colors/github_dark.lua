@@ -216,6 +216,10 @@ hi {
   ['@lsp.typemod.variable.globalScope'] = { bg = dim(purple[1]) },
 
   LspInlayHint = { fg = gray[5], bg = gray[1], italic = true },
+
+  LspReferenceText = { bg = gray[1] },
+  LspReferenceRead = { bg = dim(blue[1]) },
+  LspReferenceWrite = { bg = dim(pink[1]) },
 }
 
 for kind, colors in pairs{
