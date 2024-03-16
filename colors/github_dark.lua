@@ -202,6 +202,8 @@ hi {
   ['@type']         = { link = 'Type' },
   ['@type.builtin'] = { link = 'Type' },
   ['@variable']     = { link = 'Identifier' },
+  ['@include']      = { link = 'Include' },
+  ['@preproc']      = { link = 'PreProc' },
 
   -- Semtantic tokens
   ['@lsp.typemod.defaultLibrary'] = { italic = true },
