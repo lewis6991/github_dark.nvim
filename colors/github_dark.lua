@@ -138,8 +138,9 @@ hi {
   DiffDelete    = { bg = dim(red[0])    },
   DiffChange    = { bg = dim(purple[0]) },
   DiffText      = { bg = dim(purple[1]) },
-  diffAdded     = { bg = green[0]  },
-  diffRemoved   = { bg = red[0]    },
+  Added         = { bg = green[0]  },
+  Changed       = { bg = purple[0] },
+  Removed       = { bg = red[0]    },
 
   -- nvim-cmp
   CmpItemAbbr      = {fg=gray[5]   },
