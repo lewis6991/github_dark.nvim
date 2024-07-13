@@ -127,6 +127,7 @@ hi {
   ErrorMsg      = { fg = red[6]    },
   WarningMsg    = { fg = yellow[6] },
   MoreMsg       = { fg = green[6]  },
+  ModeMsg       = { fg = green[8]  },
   Question      = { fg = green[6]  },
   SpecialKey    = { fg = gray[6]   },
   SpellBad      = { undercurl=true, sp = pink[1]},
