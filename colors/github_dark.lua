@@ -202,6 +202,7 @@ hi {
   ['@repeat']       = { link = 'Repeat' },
   ['@storageclass'] = { link = 'StorageClass' },
   ['@type']         = { link = 'Type' },
+  ['@class']        = { link = 'Type' },
   ['@type.builtin'] = { link = 'Type' },
   ['@variable']     = { link = 'Identifier' },
   ['@include']      = { link = 'Include' },
