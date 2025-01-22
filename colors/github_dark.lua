@@ -40,7 +40,7 @@ local pink = {
   [5] = 0xdb61a2, [6] = 0xf778ba, [7] = 0xff9bce, [8] = 0xffbedd, [9] = 0xffdaec
 }
 
--- local black    = 0x010409
+local black    = 0x010409
 local white = gray[9]
 
 -- local ansi_black          = gray_0
@@ -101,12 +101,14 @@ hi {
   LineNr       = { fg = gray[5] },
   SignColumn   = { fg = gray[5] },
   FoldColumn   = { fg = gray[3] },
+  ColorColumn  = { bg = gray[2] },
   CursorLineNr = { bg = gray[1] },
   Visual       = { bg = selection_bg },
   Cursor       = { fg = white  },
   Normal       = { fg = gray[8], bg = gray[0] },
   NormalFloat  = { fg = gray[8], bg = gray[1] },
   FloatBorder  = { fg = gray[4], bg = gray[1] },
+  FloatTitle   = { fg = purple[6], bg = gray[1] },
   WinSeparator = { fg = gray[3] },
 
   CursorLine    = { bg = gray[1]   },
@@ -239,3 +241,7 @@ for kind, colors in pairs{
     ['DiagnosticUnderline'..kind]   = {sp = colors.fg, undercurl = true},
   }
 end
+
+hi {
+  ['RenderMarkdownCode'] = {bg = gray[1] },
+}
