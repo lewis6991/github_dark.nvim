@@ -1,6 +1,6 @@
 # github_dark.nvim
 
-Colorscheme inspired by github's dark theme.
+Colorscheme inspired by GitHub's light and dark themes.
 
 Supports:
 * Neovim via lua
@@ -20,7 +20,23 @@ use {'lewis6991/github_dark.nvim'}
 Plug 'lewis6991/github_dark.nvim'
 ```
 
-## Installation (shell)
+The colorscheme follows Neovim's `'background'` option. To follow the terminal
+appearance, load it without setting `'background'` explicitly:
+
+```vim
+colorscheme github_dark
+```
+
+Neovim detects appearance changes when the terminal supports them and reloads
+the colorscheme with the matching palette. To select one manually instead:
+
+```vim
+set background=light
+```
+
+Setting `'background'` explicitly disables automatic detection.
+
+## Installation (shell, dark only)
 
 Clone the repo somewhere:
 
